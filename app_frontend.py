@@ -1,9 +1,15 @@
 import streamlit as st
 import time
+import os
+import google.generativeai as genai
 
 # ✅ Import your agent
 from heurist_agent import ResearchAgent
 agent = ResearchAgent()
+
+# ✅ Configure Gemini
+genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
+gemini_model = genai.GenerativeModel("gemini-2.5-flash-lite")
 
 # ─── Page Config ────────────────────────────────────────────────────────────────
 st.set_page_config(
@@ -451,14 +457,22 @@ if st.session_state.get("analyzing") and st.session_state.get("selected_paper_ur
 
     if st.button("Get Answer →"):
         with st.spinner("Reading the paper…"):
-            time.sleep(1)
             try:
-                answer_data = {"answer": f"Answer for '{question}' based on the selected paper."}
-                st.markdown(f"""
-                <div class="answer-box">
-                    <div class="answer-label">Answer</div>
-                    {answer_data['answer']}
-                </div>
-                """, unsafe_allow_html=True)
+                prompt = f"""
+                You are a research assistant helping users understand academic papers.
+                Paper URL: {st.session_state["selected_paper_url"]}
+                Question: {question}
+                Give a clear, helpful and accurate answer based on the paper.
+                """
+                response = gemini_model.generate_content(prompt)
+                if response.candidates:
+                    st.markdown(f"""
+                    <div class="answer-box">
+                        <div class="answer-label">Answer</div>
+                        {response.text}
+                    </div>
+                    """, unsafe_allow_html=True)
+                else:
+                    st.warning("No response generated.")
             except Exception as e:
-                st.warning(f"Error: {str(e)}")
+                st.error(f"Error: {str(e)}")
