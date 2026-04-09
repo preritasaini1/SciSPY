@@ -21,20 +21,7 @@ if st.button("🔎 Search") and query:
         try:
             papers = agent.get_papers(query)
 
-            # ✅ SAME STRUCTURE AS API RESPONSE
-            data = {
-                "papers": [
-                    {
-                        "title": p,
-                        "summary": f"Summary of {p}",
-                        "published": "N/A",
-                        "url": "#"
-                    }
-                    for p in papers
-                ]
-            }
-
-            st.session_state["papers"] = data["papers"]
+            st.session_state["papers"] = papers
 
         except Exception as e:
             st.error(f"⚠️ Error retrieving research papers: {str(e)}")
@@ -44,10 +31,16 @@ if "papers" in st.session_state and st.session_state["papers"]:
     st.subheader("📑 **Search Results**")
     
     for idx, paper in enumerate(st.session_state["papers"], 1):
-        with st.expander(f"📄 {paper['title']}"):
-            st.write(f"**Summary:** {paper['summary']}")
-            st.write(f"📅 **Published:** {paper['published']}")
-            st.markdown(f"🔗 [**Read Full Paper**]({paper['url']})", unsafe_allow_html=True)
+    with st.expander(f"📄 {paper.get('title', 'No Title')}"):
+        
+        st.markdown(f"**📝 Summary:** {paper.get('summary', 'No summary available')}")
+        st.markdown(f"📅 **Published:** {paper.get('published', 'N/A')}")
+        
+        # ✅ Proper clickable link
+        st.markdown(
+            f"🔗 [**Read Full Paper**]({paper.get('url', '#')})",
+            unsafe_allow_html=True
+        )
 
     # 🎯 Paper URL input section (UNCHANGED)
     st.subheader("📥 **Analyze a Research Paper**")
