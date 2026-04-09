@@ -114,7 +114,6 @@ ipython==8.26.0
 itsdangerous==2.2.0
 jedi==0.19.1
 Jinja2==3.1.4
-jiter==0.7.1
 jmespath==1.0.1
 joblib==1.4.2
 jsonpatch==1.33
@@ -167,7 +166,6 @@ opencv-python==4.11.0.86
 opencv-python-headless==4.11.0.86
 opt-einsum==3.3.0
 optree==0.12.1
-orjson==3.10.15
 ospa==0.0.1
 packaging==24.1
 pandas==2.2.2
