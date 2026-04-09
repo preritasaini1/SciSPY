@@ -1,0 +1,23 @@
+Metadata-Version: 2.2
+Name: heurist-agent
+Version: 0.1.0
+Summary: A framework for heuristic AI agents.
+Home-page: https://github.com/heurist-network/heurist-agent-framework
+Author: Heurist Team
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.7
+License-File: LICENSE
+Requires-Dist: fastapi
+Requires-Dist: uvicorn
+Requires-Dist: requests
+Requires-Dist: pydantic
+Requires-Dist: numpy
+Requires-Dist: scipy
+Dynamic: author
+Dynamic: classifier
+Dynamic: home-page
+Dynamic: requires-dist
+Dynamic: requires-python
+Dynamic: summary
