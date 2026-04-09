@@ -1,8 +1,8 @@
 import streamlit as st
-import requests
 import time
 
-API_URL = "http://127.0.0.1:8000"  # Update if needed
+# 👉 IMPORT YOUR LOGIC HERE
+from heurist_agent import search_papers, answer_query   # adjust if names differ
 
 st.set_page_config(page_title="SciSpy Research Assistant", layout="wide")
 
@@ -14,39 +14,38 @@ query = st.text_input("🔍 **Search for research papers** (e.g., AI, Quantum Co
 
 if st.button("🔎 Search") and query:
     with st.spinner("Fetching research papers..."):
-        response = requests.post(f"{API_URL}/search_papers/", json={"query": query})
-        time.sleep(1)  # Simulating loading effect
+        time.sleep(1)
 
-        if response.status_code == 200:
-            data = response.json()
-            st.session_state["papers"] = data["papers"]  # Store results in session state
-        else:
-            st.error("⚠️ Error retrieving research papers. Please try again.")
+        try:
+            papers = search_papers(query)   # ✅ direct call
+            st.session_state["papers"] = papers
+        except Exception as e:
+            st.error(f"⚠️ Error: {str(e)}")
 
-# 🔎 Display search results (persistent across interactions)
+# 🔎 Display search results
 if "papers" in st.session_state and st.session_state["papers"]:
     st.subheader("📑 **Search Results**")
     
     for idx, paper in enumerate(st.session_state["papers"], 1):
-        with st.expander(f"📄 {paper['title']}"):
-            st.write(f"**Summary:** {paper['summary']}")
-            st.write(f"📅 **Published:** {paper['published']}")
-            st.markdown(f"🔗 [**Read Full Paper**]({paper['url']})", unsafe_allow_html=True)
+        with st.expander(f"📄 {paper.get('title', 'No Title')}"):
+            st.write(f"**Summary:** {paper.get('summary', 'No summary')}")
+            st.write(f"📅 **Published:** {paper.get('published', 'N/A')}")
+            st.markdown(f"🔗 [**Read Full Paper**]({paper.get('url', '#')})")
 
-    # 🎯 Paper URL input section
+    # 🎯 Paper URL input
     st.subheader("📥 **Analyze a Research Paper**")
     
     if "selected_paper_url" not in st.session_state:
-        st.session_state["selected_paper_url"] = ""  # Ensure persistence
+        st.session_state["selected_paper_url"] = ""
 
     paper_url = st.text_input("🔗 **Enter the paper URL:**", value=st.session_state["selected_paper_url"])
 
     if st.button("📊 Analyze Paper"):
         st.session_state["selected_paper_url"] = paper_url
         st.session_state["analyzing"] = True
-        st.toast("✅ **Paper URL submitted for analysis!**")
+        st.toast("✅ Paper URL submitted!")
 
-# 🧐 **Question & Answer Section**
+# 🧐 Q&A Section
 if st.session_state.get("analyzing") and st.session_state.get("selected_paper_url"):
     st.subheader("🧐 **Ask a Question about the Paper**")
     
@@ -54,21 +53,18 @@ if st.session_state.get("analyzing") and st.session_state.get("selected_paper_ur
 
     if st.button("💡 Get Answer"):
         with st.spinner("🔍 Generating answer..."):
-            response = requests.post(
-                f"{API_URL}/answer_query/", 
-                json={"url": st.session_state["selected_paper_url"], "query": question}
-            )
-            time.sleep(1)  # Simulating processing delay
+            time.sleep(1)
 
-            if response.status_code == 200:
-                answer_data = response.json()
-                st.success(f"💡 **Answer:** {answer_data['answer']}")
-            else:
-                st.warning("⚠️ Error retrieving answer. Please try again.")
+            try:
+                answer = answer_query(st.session_state["selected_paper_url"], question)
+                st.success(f"💡 **Answer:** {answer}")
+            except Exception as e:
+                st.warning(f"⚠️ Error: {str(e)}")
 
-# 🎨 **Enhancements**
+# 🎨 Sidebar
 st.sidebar.title("⚙️ Settings")
 theme = st.sidebar.radio("🎨 Select Theme", ["Light", "Dark"])
+
 if theme == "Dark":
     st.markdown(
         """
@@ -77,10 +73,9 @@ if theme == "Dark":
                 background-color: #1e1e1e;
                 color: white;
             }
-        </style>
-        """, unsafe_allow_html=True
+        """,
+        unsafe_allow_html=True
     )
 
 st.sidebar.markdown("---")
 st.sidebar.info("👨‍💻 Developed by **SciSpy Team** | 🚀 Powered by AI")
-
