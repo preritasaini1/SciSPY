@@ -1,4 +1,5 @@
 import logging
+import arxiv
 from typing import List
 
 # Set up logging
@@ -20,16 +21,21 @@ class ResearchAgent:
         }
         logger.info(f"{self.agent_name} initialized.")
 
-    def get_papers(self, query: str) -> List[str]:
-        """Fetch research papers based on the provided query."""
-        logger.info(f"Fetching papers for query: {query}")
-        
-        # Simulate fetching papers (you can replace this with actual logic to fetch papers)
-        papers = [
-            f"Paper 1 on {query}",
-            f"Paper 2 on {query}",
-            f"Paper 3 on {query}",
-        ]
-        
-        logger.info(f"Found {len(papers)} papers for query: {query}")
+    def get_papers(self, query: str):
+        search = arxiv.Search(
+            query=query,
+            max_results=5,
+            sort_by=arxiv.SortCriterion.Relevance
+        )
+    
+        papers = []
+    
+        for result in search.results():
+            papers.append({
+                "title": result.title,
+                "summary": result.summary[:300] + "...",
+                "published": str(result.published.date()),
+                "url": result.entry_id   # ✅ REAL LINK
+            })
+    
         return papers
