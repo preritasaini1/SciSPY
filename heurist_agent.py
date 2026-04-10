@@ -66,7 +66,7 @@ class ResearchAgent:
                     "title": result.title,
                     "summary": result.summary[:300] + "...",
                     "published": str(result.published.date()),
-                    "url": result.entry_id
+                    "url": result.entry_id,
                     "pdf_url": result.pdf_url
                 })
 
