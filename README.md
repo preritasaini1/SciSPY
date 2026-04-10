@@ -40,14 +40,15 @@
 ---
 ---
 
-> ⚠️ **Note:** This project was initially forked from a hackathon base repository.  
-> However, it has been **significantly redesigned and extended**, including:
-> - Complete UI redesign using Streamlit
-> - Integration of AI-based Q&A using Gemini
-> - Enhanced research search system with filters
-> - Improved user experience and deployment
->
-> Most of the current functionality and structure has been independently developed.
+⚠️ **Note:** This project was initially forked from a hackathon base repository.  
+However, it has been **extensively redesigned, extended, and improved**, including:
+
+- Complete UI redesign using Streamlit  
+- Integration of AI-powered Q&A using Google Gemini  
+- Enhanced research search system with dynamic filters  
+- Improved user experience, interaction flow, and deployment  
+
+🚀 The current version represents significant independent development beyond the original base.
 
 ---
 
