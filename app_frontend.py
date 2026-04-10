@@ -463,47 +463,47 @@ if st.session_state.get("analyzing") and st.session_state.get("selected_paper_ur
         key="question_input", label_visibility="collapsed")
 
     if st.button("Get Answer →"):
-    with st.spinner("Reading the paper…"):
-        try:
-            import arxiv
-
-            paper_url = st.session_state["selected_paper_url"]
-
-            # 🔥 Extract paper ID from URL
-            paper_id = paper_url.split("/")[-1]
-
-            # 🔥 Fetch real paper data
-            search = arxiv.Search(id_list=[paper_id])
-            result = next(search.results())
-
-            summary = result.summary
-
-            # 🔥 Give ACTUAL content to Gemini
-            prompt = f"""
-            You are a research assistant.
-
-            Use ONLY the following research paper summary to answer.
-
-            Paper Summary:
-            {summary}
-
-            Question:
-            {question}
-
-            If answer is not present, say "Not mentioned in paper".
-            """
-
-            response = gemini_model.generate_content(prompt)
-
-            if response.candidates:
-                st.markdown(f"""
-                <div class="answer-box">
-                    <div class="answer-label">Answer</div>
-                    {response.text}
-                </div>
-                """, unsafe_allow_html=True)
-            else:
-                st.warning("No response generated.")
+        with st.spinner("Reading the paper…"):
+            try:
+                import arxiv
+    
+                paper_url = st.session_state["selected_paper_url"]
+    
+                # 🔥 Extract paper ID from URL
+                paper_id = paper_url.split("/")[-1]
+    
+                # 🔥 Fetch real paper data
+                search = arxiv.Search(id_list=[paper_id])
+                result = next(search.results())
+    
+                summary = result.summary
+    
+                # 🔥 Give ACTUAL content to Gemini
+                prompt = f"""
+                You are a research assistant.
+    
+                Use ONLY the following research paper summary to answer.
+    
+                Paper Summary:
+                {summary}
+    
+                Question:
+                {question}
+    
+                If answer is not present, say "Not mentioned in paper".
+                """
+    
+                response = gemini_model.generate_content(prompt)
+    
+                if response.candidates:
+                    st.markdown(f"""
+                    <div class="answer-box">
+                        <div class="answer-label">Answer</div>
+                        {response.text}
+                    </div>
+                    """, unsafe_allow_html=True)
+                else:
+                    st.warning("No response generated.")
 
         except Exception as e:
             st.error(f"Error: {str(e)}")
