@@ -457,44 +457,51 @@ if st.session_state.get("analyzing") and st.session_state.get("selected_paper_ur
     st.markdown('<div class="sec-eyebrow">Step 03</div>', unsafe_allow_html=True)
     st.markdown('<div class="sec-heading">Ask a Question</div>', unsafe_allow_html=True)
 
-    st.markdown(f'<div style="font-size:0.75rem;color:#9c9488;font-family:\'JetBrains Mono\',monospace;margin-bottom:0.9rem;">{st.session_state["selected_paper_url"]}</div>', unsafe_allow_html=True)
+    st.markdown(
+        f'<div style="font-size:0.75rem;color:#9c9488;font-family:\'JetBrains Mono\',monospace;margin-bottom:0.9rem;">{st.session_state["selected_paper_url"]}</div>',
+        unsafe_allow_html=True
+    )
 
-    question = st.text_input("Question", placeholder="e.g.  What is the main contribution?  Which dataset was used?",
-        key="question_input", label_visibility="collapsed")
+    question = st.text_input(
+        "Question",
+        placeholder="e.g. What is the main contribution? Which dataset was used?",
+        key="question_input",
+        label_visibility="collapsed"
+    )
 
     if st.button("Get Answer →"):
         with st.spinner("Reading the paper…"):
             try:
                 import arxiv
-    
+
                 paper_url = st.session_state["selected_paper_url"]
-    
-                # 🔥 Extract paper ID from URL
+
+                # Extract paper ID
                 paper_id = paper_url.split("/")[-1]
-    
-                # 🔥 Fetch real paper data
+
+                # Fetch paper
                 search = arxiv.Search(id_list=[paper_id])
                 result = next(search.results())
-    
+
                 summary = result.summary
-    
-                # 🔥 Give ACTUAL content to Gemini
+
+                # Gemini prompt
                 prompt = f"""
                 You are a research assistant.
-    
+
                 Use ONLY the following research paper summary to answer.
-    
+
                 Paper Summary:
                 {summary}
-    
+
                 Question:
                 {question}
-    
+
                 If answer is not present, say "Not mentioned in paper".
                 """
-    
+
                 response = gemini_model.generate_content(prompt)
-    
+
                 if response.candidates:
                     st.markdown(f"""
                     <div class="answer-box">
@@ -505,5 +512,5 @@ if st.session_state.get("analyzing") and st.session_state.get("selected_paper_ur
                 else:
                     st.warning("No response generated.")
 
-        except Exception as e:
-            st.error(f"Error: {str(e)}")
+            except Exception as e: 
+                st.error(f"Error: {str(e)}")
