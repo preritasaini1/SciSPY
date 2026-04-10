@@ -38,6 +38,18 @@
 | ⚡ **Fast Deployment** | Lightweight, Render-ready, minimal setup |
 
 ---
+---
+
+> ⚠️ **Note:** This project was initially forked from a hackathon base repository.  
+> However, it has been **significantly redesigned and extended**, including:
+> - Complete UI redesign using Streamlit
+> - Integration of AI-based Q&A using Gemini
+> - Enhanced research search system with filters
+> - Improved user experience and deployment
+>
+> Most of the current functionality and structure has been independently developed.
+
+---
 
 ## 🖼️ Preview
 
