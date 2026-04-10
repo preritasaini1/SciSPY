@@ -1,68 +1,207 @@
-# SciSPY
+<div align="center">
 
-## Introduction
-SciSPY is a smart research agent that streamlines the academic paper discovery process. Using various APIs and heuristic-based analysis, it searches and retrieves research papers based on user prompts and provides valuable insights into the findings.
+# 🔬 SciSpy
+### AI-Powered Research Intelligence Assistant
 
-## Features
-- Intelligent paper search based on user prompts
-- Customizable number of paper retrievals
-- In-depth analysis and insights generation
-- User-friendly interface for both students and educators
-- Scalable architecture for growing research needs
+*Search · Analyze · Understand — research papers in seconds*
 
-## Technologies Used
-- Python (Core programming language)
-- Heurist Agent Framework
-- Streamlit(Frontend interface)
-- Deployment infrastructure
+[![Python](https://img.shields.io/badge/Python-3.10+-3776ab?style=flat-square&logo=python&logoColor=white)](https://python.org)
+[![Streamlit](https://img.shields.io/badge/Streamlit-1.x-ff4b4b?style=flat-square&logo=streamlit&logoColor=white)](https://streamlit.io)
+[![Gemini](https://img.shields.io/badge/Gemini_AI-2.5_Flash-4285f4?style=flat-square&logo=google&logoColor=white)](https://ai.google.dev)
+[![arXiv](https://img.shields.io/badge/arXiv-API-b31b1b?style=flat-square)](https://arxiv.org)
+[![Render](https://img.shields.io/badge/Deployed_on-Render-46e3b7?style=flat-square&logo=render&logoColor=white)](https://scispy-agent.onrender.com)
+[![License](https://img.shields.io/badge/License-Educational-lightgrey?style=flat-square)](#-license)
 
+[🌐 Live Demo](https://scispy-agent.onrender.com) · [📹 Watch Video](#-demo) · [⭐ Star this repo](https://github.com/preritasaini1/SciSPY)
 
-## Installation
-1. Clone the repository:
-```bash
-git clone https://github.com/yourusername/scispy.git
+</div>
+
+---
+
+## 📖 What is SciSpy?
+
+**SciSpy** bridges the gap between *discovering* research and *understanding* it. Powered by the **arXiv API** for real-time paper search and **Google Gemini AI** for contextual question answering, SciSpy lets anyone — student, researcher, or curious mind — instantly explore academic literature without the usual friction.
+
+> 💡 *Type a topic → Browse papers → Ask a question → Get an AI-generated answer. That's it.*
+
+---
+
+## ✨ Features
+
+| Feature | Description |
+|---|---|
+| 🔎 **Real-Time Search** | Query the arXiv API and surface papers instantly |
+| 🎛️ **Smart Filters** | Control max results, sort order, and data sources |
+| 📄 **Paper Cards** | Clean layout with abstracts, publish date, and direct links |
+| 🤖 **AI Q&A** | Ask any question about a paper — Gemini answers it |
+| 📊 **Compact / Full View** | Toggle between reading modes |
+| ⚡ **Fast Deployment** | Lightweight, Render-ready, minimal setup |
+
+---
+
+## 🖼️ Preview
+
+### 🔍 Search Interface
+![Search UI](your-image-link-1)
+*Search across any research domain with configurable filters*
+
+### 📄 Research Results
+![Results UI](your-image-link-2)
+*Structured paper cards — title, abstract, date, and direct PDF link*
+
+### 🤖 AI Q&A
+![QnA UI](your-image-link-3)
+*Ask natural language questions, get contextual AI-generated answers*
+
+---
+
+## 🎥 Demo
+
+| | |
+|---|---|
+| 🌐 **Live App** | [scispy-agent.onrender.com](https://scispy-agent.onrender.com) |
+| 📹 **Demo Video** | [Watch here](your-video-link) |
+
+---
+
+## 🧠 How It Works
+
+```
+User Query
+    │
+    ▼
+arXiv API ──────► Paper Results (title, abstract, URL)
+                        │
+                        ▼
+                  Select a Paper
+                        │
+                        ▼
+              Extract Summary (Context)
+                        │
+                        ▼
+             Google Gemini 2.5 Flash Lite
+                        │
+                        ▼
+              Contextual Answer → UI
 ```
 
-2. Create and activate virtual environment:
+---
+
+## 📂 Project Structure
+
+```
+SciSPY/
+├── app_frontend.py       # Streamlit UI — all pages and components
+├── heurist_agent.py      # Research agent — arXiv API logic
+├── requirements.txt      # Python dependencies
+├── runtime.txt           # Python version (for Render deployment)
+├── .env                  # API keys (never commit this)
+├── utils/                # Helper functions (optional)
+├── config/               # App configurations
+└── README.md
+```
+
+---
+
+## ⚙️ Setup & Installation
+
+### Prerequisites
+- Python 3.10+
+- A [Google Gemini API key](https://ai.google.dev)
+
+### Steps
+
 ```bash
+# 1. Clone the repository
+git clone https://github.com/preritasaini1/SciSPY.git
+cd SciSPY
+
+# 2. Create and activate a virtual environment
 python -m venv venv
-source venv/bin/activate  # For Unix/MacOS
-venv\Scripts\activate     # For Windows
-```
+venv\Scripts\activate        # Windows
+# source venv/bin/activate   # macOS / Linux
 
-3. Install required dependencies:
-```bash
+# 3. Install dependencies
 pip install -r requirements.txt
+
+# 4. Set up your API key
+# Create a .env file in the root directory:
+echo GEMINI_API_KEY=your_key_here > .env
+
+# 5. Run the app
+streamlit run app_frontend.py
 ```
 
-## Usage
-SciSPY is designed to be accessible for various user groups, including college students, teachers, and researchers. The platform offers an intuitive interface for:
-1. Entering research topics or prompts
-2. Specifying the number of papers to retrieve
-3. Viewing and analyzing research findings
-4. Generating insights based on the collected papers
+The app will open at `http://localhost:8501` 🎉
 
-## API Documentation
-Reference documentation for integrated APIs:
-- [[API Documentation Link 1](https://info.arxiv.org/help/api/index.html)]
-- [[API Documentation Link 2](https://www.semanticscholar.org/product/api)]
-- [[API Documentation Link 3](https://paperswithcode.com/api/v1/docs/)]
-- [[API Documentation Link 4](https://www.crossref.org/documentation/retrieve-metadata/rest-api/)]
+---
 
-## Contributing
-Currently, this project is closed for modifications by viewers for now. All rights are reserved by the project maintainers.
+## 🧪 Tech Stack
 
-## License
-All rights reserved. No modifications are permitted without explicit permission from the project owners.
+| Layer | Technology |
+|---|---|
+| **Frontend** | Streamlit |
+| **Backend Logic** | Python |
+| **Research Data** | arXiv Open API |
+| **AI Model** | Google Gemini 2.5 Flash Lite |
+| **Deployment** | Render |
 
-## Contact
-For support, inquiries, or more information about SciSPY, please reach out through:
-[Your contact information here]
+---
 
-## Acknowledgments
-Special thanks to:
-- Contributors and team members
-- API service providers
-- Testing and feedback providers
+## 💡 Use Cases
 
-*Note: This README is a living document and will be updated as the project evolves.*
+- 🎓 **Students** — Quickly explore any research topic for coursework or projects
+- 🧑‍🏫 **Educators** — Simplify complex papers for teaching
+- 💻 **Developers** — Rapidly learn new technical domains
+- 🧠 **Researchers** — Accelerate literature reviews and paper discovery
+
+---
+
+## ⚠️ Current Limitations
+
+- Answers are based on **abstracts**, not full paper text (yet)
+- Search is currently limited to **arXiv**
+
+---
+
+## 🚀 Roadmap
+
+- [ ] 📑 Full PDF ingestion with RAG (Retrieval-Augmented Generation)
+- [ ] 🔍 Multi-source search — IEEE, PubMed, Semantic Scholar
+- [ ] 📊 Paper ranking by citations and impact
+- [ ] 🆚 Side-by-side paper comparison
+- [ ] ⭐ Trending / top paper highlights
+- [ ] 💾 Save and export results
+
+---
+
+## 👩‍💻 Author
+
+**Prerita Saini** 💙  
+AI & ML Enthusiast
+
+[![GitHub](https://img.shields.io/badge/GitHub-preritasaini1-181717?style=flat-square&logo=github)](https://github.com/preritasaini1)
+
+---
+
+## 🙌 Acknowledgements
+
+- [arXiv](https://arxiv.org) — for open access to research data
+- [Google Gemini API](https://ai.google.dev) — for AI capabilities
+- [Streamlit](https://streamlit.io) — for the rapid UI framework
+- The open-source community 💛
+
+---
+
+## 📄 License
+
+This project is created for **educational and demonstration purposes**.  
+All rights reserved © Prerita Saini.
+
+---
+
+<div align="center">
+
+💙 *Made with curiosity, passion, and a love for research.*
+
+</div>
