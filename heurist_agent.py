@@ -22,12 +22,15 @@ class ResearchAgent:
 
         logger.info(f"{self.agent_name} initialized.")
 
-    # 🔥 STEP 2: SMART QUERY REFINEMENT
+    # 🔥 FIXED FUNCTION
     def refine_query(self, query: str) -> str:
         try:
             prompt = f"""
-            Convert this into a precise academic research search query.
-            Focus on the correct domain and context.
+            Convert the following query into a SHORT academic search query (max 10 words).
+
+            DO NOT explain.
+            DO NOT give multiple options.
+            ONLY return the final query.
 
             Query: {query}
             """
@@ -35,17 +38,24 @@ class ResearchAgent:
             response = self.model.generate_content(prompt)
 
             refined = response.text.strip()
+
+            # 🔥 EXTRA SAFETY
+            refined = refined.split("\n")[0]
+            refined = refined[:100]
+
+            # remove unwanted characters
+            refined = refined.replace('"', '').replace("'", "")
+
             logger.info(f"Refined query: {refined}")
 
             return refined if refined else query
 
         except Exception as e:
             logger.error(f"Gemini refinement failed: {e}")
-            return query  # fallback
+            return query
 
     # 🔍 MAIN FUNCTION
     def get_papers(self, query: str):
-        # ✅ refine query using Gemini
         refined_query = self.refine_query(query)
 
         search = arxiv.Search(
