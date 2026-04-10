@@ -12,7 +12,7 @@
 [![Render](https://img.shields.io/badge/Deployed_on-Render-46e3b7?style=flat-square&logo=render&logoColor=white)](https://scispy-agent.onrender.com)
 [![License](https://img.shields.io/badge/License-Educational-lightgrey?style=flat-square)](#-license)
 
-[🌐 Live Demo](https://scispy-agent.onrender.com) · [📹 Watch Video](#-demo) · [⭐ Star this repo](https://github.com/preritasaini1/SciSPY)
+[🌐 Live Demo](https://scispy-agent.onrender.com) · [📹 Watch Video](https://drive.google.com/file/d/1RA_aMklp5UZxwFy1qUjSiKqkohailE98/view?usp=sharing) · [⭐ Star this repo](https://github.com/preritasaini1/SciSPY)
 
 </div>
 
@@ -42,15 +42,19 @@
 ## 🖼️ Preview
 
 ### 🔍 Search Interface
-![Search UI](your-image-link-1)
+![Search UI](images/Search.png)
 *Search across any research domain with configurable filters*
 
 ### 📄 Research Results
-![Results UI](your-image-link-2)
+![Results UI](images/Result.png)
 *Structured paper cards — title, abstract, date, and direct PDF link*
 
+### 🔍 Analyze a Paper
+![Analyze UI](images/Analyze.png)
+*Paste any arXiv paper URL to extract context and enable AI-powered Q&A*
+
 ### 🤖 AI Q&A
-![QnA UI](your-image-link-3)
+![QnA UI](images/Q&A.png)
 *Ask natural language questions, get contextual AI-generated answers*
 
 ---
@@ -60,7 +64,7 @@
 | | |
 |---|---|
 | 🌐 **Live App** | [scispy-agent.onrender.com](https://scispy-agent.onrender.com) |
-| 📹 **Demo Video** | [Watch here](your-video-link) |
+| 📹 **Demo Video** | [Watch here](https://drive.google.com/file/d/1RA_aMklp5UZxwFy1qUjSiKqkohailE98/view?usp=sharing) |
 
 ---
 
