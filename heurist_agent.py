@@ -1,6 +1,5 @@
 import logging
 import arxiv
-from typing import List
 import google.generativeai as genai
 import os
 
@@ -22,7 +21,7 @@ class ResearchAgent:
 
         logger.info(f"{self.agent_name} initialized.")
 
-    # 🔥 FIXED FUNCTION
+    # 🔥 SMART QUERY REFINEMENT (FIXED)
     def refine_query(self, query: str) -> str:
         try:
             prompt = f"""
@@ -39,11 +38,9 @@ class ResearchAgent:
 
             refined = response.text.strip()
 
-            # 🔥 EXTRA SAFETY
+            # ✅ safety cleaning
             refined = refined.split("\n")[0]
             refined = refined[:100]
-
-            # remove unwanted characters
             refined = refined.replace('"', '').replace("'", "")
 
             logger.info(f"Refined query: {refined}")
@@ -60,7 +57,7 @@ class ResearchAgent:
 
         search = arxiv.Search(
             query=refined_query,
-            max_results=5,
+            max_results=10,  # 🔥 get more for better ranking
             sort_by=arxiv.SortCriterion.Relevance
         )
 
@@ -74,4 +71,20 @@ class ResearchAgent:
                 "url": result.entry_id
             })
 
-        return papers
+        # 🔥 BOOST IMPORTANT ML PAPERS
+        priority_keywords = [
+            "attention is all you need",
+            "transformer",
+            "bert",
+            "gpt",
+            "self-attention"
+        ]
+
+        papers = sorted(
+            papers,
+            key=lambda p: any(k in p["title"].lower() for k in priority_keywords),
+            reverse=True
+        )
+
+        # ✅ return top 5
+        return papers[:5]
