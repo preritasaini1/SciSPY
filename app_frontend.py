@@ -425,10 +425,8 @@ if "papers" in st.session_state and st.session_state["papers"]:
                 <div class="paper-num">[{idx:02d}] · {pub}</div>
                 <div class="paper-title">{title}</div>
                 {abs_html}
-                <div class="paper-footer">
-                    <span class="paper-date"></span>
-                    <a class="paper-link" href="{url}" target="_blank">Read full paper →</a>
-                    &nbsp;&nbsp;
+                <div class="paper-footer" style="display:flex; gap:12px; align-items:center;">
+                    <a class="paper-link" href="{url}" target="_blank">🔗 View on arXiv</a>
                     <a class="paper-link" href="{pdf_url}" target="_blank">📄 PDF</a>
                 </div>
             </div>
@@ -488,19 +486,25 @@ if st.session_state.get("analyzing") and st.session_state.get("selected_paper_ur
 
                 # Gemini prompt
                 prompt = f"""
-                You are a research assistant.
-
-                Use ONLY the following research paper summary to answer.
-
+                You are an expert research assistant.
+                
+                Based ONLY on the given research paper summary, provide a detailed, structured, and clear answer.
+                
                 Paper Summary:
                 {summary}
-
+                
                 Question:
                 {question}
-
-                If answer is not present, say "Not mentioned in paper".
+                
+                Instructions:
+                - Explain in a clear and slightly detailed way (not too short)
+                - Use bullet points if helpful
+                - Highlight key concepts
+                - If dataset is asked, clearly mention dataset name
+                - If answer is not present, say "Not mentioned in paper"
+                
+                Answer:
                 """
-
                 response = gemini_model.generate_content(prompt)
 
                 if response.candidates:
