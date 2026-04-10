@@ -388,7 +388,12 @@ if search_clicked and query:
     with st.spinner("Scanning the literature…"):
         time.sleep(1)
         try:
-            papers = agent.get_papers(query)
+            papers = agent.get_papers(
+                query,
+                max_results=max_results,
+                sort_by=sort_by,
+                sources=source_filter
+            )
             st.session_state["papers"] = papers
         except Exception as e:
             st.error(f"Error: {str(e)}")
