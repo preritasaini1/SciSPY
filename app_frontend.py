@@ -419,6 +419,7 @@ if "papers" in st.session_state and st.session_state["papers"]:
                 st.markdown(f"Published: **{pub}** · [Read paper →]({url})", unsafe_allow_html=True)
         else:
             abs_html = f'<div class="paper-abstract">{summary}</div>' if show_abstracts else ""
+            pdf_url = paper.get("pdf_url", url.replace("/abs/", "/pdf/") + ".pdf")
             st.markdown(f"""
             <div class="paper-card">
                 <div class="paper-num">[{idx:02d}] · {pub}</div>
