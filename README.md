@@ -100,7 +100,26 @@ arXiv API ──────► Paper Results (title, abstract, URL)
                         ▼
               Contextual Answer → UI
 ```
+---
 
+## 🧩 System Architecture (Full Stack Design)
+
+SciSpy is built as a **full-stack AI application**, combining frontend, backend logic, real-time APIs, and deployment.
+
+### 🔹 Architecture Breakdown
+
+- 🎨 **Frontend:** Streamlit UI for interactive user experience  
+- ⚙️ **Backend Logic:** Python (ResearchAgent, API handling, data processing)  
+- 📡 **Data Layer:** arXiv API (real-time research paper retrieval — no local database)  
+- 🤖 **AI Layer:** Google Gemini (contextual understanding & Q&A)  
+- 🔄 **State Management:** Streamlit `session_state`  
+- ☁️ **Deployment:** Render (cloud-hosted, live application)
+
+👉 This architecture follows a **stateless, API-driven design**, where data is fetched in real-time instead of being stored locally.
+
+💡 *This approach reduces complexity, avoids database overhead, and ensures up-to-date research results.*
+
+---
 ---
 
 ## 📂 Project Structure
