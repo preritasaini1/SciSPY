@@ -3,11 +3,9 @@ import time
 import os
 import google.generativeai as genai
 
-# ✅ Import your agent
 from heurist_agent import ResearchAgent
 agent = ResearchAgent()
 
-# ✅ Configure Gemini
 genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
 gemini_model = genai.GenerativeModel("gemini-2.5-flash-lite")
 
